@@ -1,0 +1,23 @@
+/* line 2, ../sass/one.scss */
+.deckdraw {
+  height: 80px;
+}
+
+/* line 5, ../sass/one.scss */
+.row {
+  height: 80px;
+}
+
+/* line 8, ../sass/one.scss */
+.spot {
+  width: 60px;
+  height: 60px;
+  float: left;
+  margin: 5px;
+  background: lightblue;
+}
+
+/* line 15, ../sass/one.scss */
+[card-data] {
+  background: url(images/color.jpg);
+}

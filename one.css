@@ -1,0 +1,101 @@
+/* line 2, sass/one.scss */
+.deckdraw {
+  height: 100px;
+}
+
+/* line 5, sass/one.scss */
+.row {
+  height: 100px;
+}
+
+/* line 8, sass/one.scss */
+.spot {
+  width: 60px;
+  height: 90px;
+  float: left;
+  margin: 5px;
+  background: lightblue;
+}
+
+/* line 15, sass/one.scss */
+.card {
+  width: 40px;
+  height: 60px;
+  display: inline-block;
+}
+
+/* line 20, sass/one.scss */
+.playermat {
+  min-width: 40px;
+  min-height: 40px;
+  background: lightyellow;
+}
+
+/* line 25, sass/one.scss */
+.typestack {
+  width: 50px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 29, sass/one.scss */
+.typestack .spacer {
+  height: 20px;
+}
+/* line 31, sass/one.scss */
+.typestack .spacer:last-child {
+  height: auto;
+}
+
+/* line 36, sass/one.scss */
+[card-data] {
+  background: url(images/color.jpg) no-repeat;
+  background-size: 410%;
+  background-position: 0% -100%;
+}
+
+/* line 41, sass/one.scss */
+[card-data='orange'] {
+  background-position: 0% 0%;
+}
+
+/* line 44, sass/one.scss */
+[card-data='blue'] {
+  background-position: 33.3% 0%;
+}
+
+/* line 47, sass/one.scss */
+[card-data='brown'] {
+  background-position: 66.6% 0%;
+}
+
+/* line 50, sass/one.scss */
+[card-data='yellow'] {
+  background-position: 100% 0%;
+}
+
+/* line 53, sass/one.scss */
+[card-data='purple'] {
+  background-position: 13.3% 100%;
+}
+
+/* line 56, sass/one.scss */
+[card-data='green'] {
+  background-position: 46.6% 100%;
+}
+
+/* line 59, sass/one.scss */
+[card-data='red'] {
+  background-position: 79% 100%;
+}
+
+/* line 62, sass/one.scss */
+[card-data='wild'] {
+  background: url(images/Coloretto-wild.jpg);
+  background-size: 100%;
+}
+
+/* line 66, sass/one.scss */
+[card-data='plus'] {
+  background: url("images/bonus.png");
+  background-size: contain;
+}

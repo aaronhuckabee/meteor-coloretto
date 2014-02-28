@@ -1,0 +1,69 @@
+
+.deckdraw {
+  height: 100px;
+}
+.row {
+  height: 100px;
+}
+.spot {
+  width: 60px;
+  height: 90px;
+  float: left;
+  margin: 5px;
+  background: lightblue;
+}
+.card {
+  width: 40px;
+  height: 60px;
+  display: inline-block;
+}
+.playermat {
+  min-width: 40px;
+  min-height: 40px;
+  background: lightyellow;
+}
+.typestack {
+  width: 50px;
+  display: inline-block;
+  vertical-align: top;
+  .spacer {
+    height: 20px;
+    &:last-child {
+      height: auto;
+    }
+  }
+}
+[card-data] {
+  background: url(images/color.jpg) no-repeat;
+  background-size: 410%;
+  background-position: 0% -100%;
+}
+[card-data='orange'] {
+  background-position: 0% 0%;
+}
+[card-data='blue'] {
+  background-position: 33.3% 0%;
+}
+[card-data='brown'] {
+  background-position: 66.6% 0%;
+}
+[card-data='yellow'] {
+  background-position: 100% 0%;
+}
+[card-data='purple'] {
+  background-position: 13.3% 100%;
+}
+[card-data='green'] {
+  background-position: 46.6% 100%;
+}
+[card-data='red'] {
+  background-position: 79% 100%;
+}
+[card-data='wild'] {
+  background: url(images/Coloretto-wild.jpg);
+  background-size: 100%;
+}
+[card-data='plus'] {
+  background: url('images/bonus.png');
+  background-size: contain;
+}

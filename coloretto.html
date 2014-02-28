@@ -1,0 +1,75 @@
+<head>
+  <title>test</title>
+</head>
+
+<body>
+  {{> hello}}
+  {{> playerspace}}
+  {{> gameboard}}
+</body>
+<template name="hello">
+  <h1>Hello World!</h1>
+  {{greeting}}
+  <input class='joiner' type="button" value="Click to Join Game" />
+  {{loginButtons}} 
+
+  {{#unless gameinprogress}}
+    <p>Must have 3-5 players to play</p>
+    {{#if enoughPlayers}}
+      <input class='starter' type="button" value="Click to Start Game" />
+    {{/if}}
+  {{/unless}}
+</template>
+
+<template name="playerspace">
+    {{#each playersPlaying}}
+    <div class="playermat {{#if turn}} blue {{/if}}">
+      <h2>{{username}}</h2>
+      {{#each sortedcards}}
+      <div class='typestack'>
+        {{#each this}}
+          <div class='spacer'>
+            <div class='card' card-data='{{this}}'></div>
+          </div>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+</template>
+
+<template name="gameboard">
+  {{#if gameinprogress}}
+      {{#if myTurn}}
+      <p>Your turn, bucko</p>
+      {{/if}}
+      <div class='deckdraw'>
+        {{#if myTurn}}
+          {{#unless cardDrawn}}
+            <input class='drawer' type="button" value="Click to Draw a Card" />
+          {{/unless}}
+        {{/if}}
+        <div class='spot' {{#if cardDrawn}}card-data='{{{currentCard}}'{{/if}}></div>
+      </div>
+      {{#each stacks}}
+      <div class='row row{{index}}' >
+
+          {{#if myTurn}}
+            {{#if cardDrawn}}
+              {{#notThree stack}}
+                <input class='stack' mid='{{_id}}' type="button" value="Click to add to stack" />
+              {{/notThree}}
+            {{/if}}
+          {{/if}}
+          {{#if myTurn}}
+              {{#unless cardDrawn}}
+                <input class='taker' mid='{{_id}}' type="button" value="Click to take stack" />
+              {{/unless}}
+          {{/if}}
+          {{#each stack}}
+          <div class='spot spot1' card-data='{{this}}'></div>
+          {{/each}}
+        </div>
+      {{/each}}
+    {{/if}}
+</template>

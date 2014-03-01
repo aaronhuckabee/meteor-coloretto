@@ -178,12 +178,13 @@ if (Meteor.isServer) {
       CurrentCard.insert({card: deck.shift()});
       Deck.insert({cards: deck});
       console.log(deck.length);
-      //if (deck.length == 15) {
-        //game = Game.find({}).fetch()[0];
-        //game.lastround = true;
-        //console.log('lastround');
-        //Game.update({_id: game._id}, game);
-      //}
+      if (deck.length == 15) {
+        var game = Game.find({}).fetch()[0];
+        game.lastround = true;
+        console.log('lastround');
+        Game.update({_id: game._id}, game);
+
+      }
     },
     addtostack: function(stackID, uid) {
       cardsinstack = Stacks.find({_id:stackID}).fetch()[0].stack;
@@ -269,7 +270,7 @@ if (Meteor.isServer) {
   function deckmake(players) {
     if (players == 3) {
       colors = new Array('blue', 'purple', 'green', 'brown', 'red', 'orange');
-      colors = new Array('blue');
+      // colors = new Array('blue');
     } else {
       colors = new Array('blue', 'purple', 'green', 'yellow', 'brown', 'red', 'orange');
     }

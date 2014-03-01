@@ -1,5 +1,5 @@
 <head>
-  <title>test</title>
+  <title></title>
 </head>
 
 <body>
@@ -10,10 +10,10 @@
 <template name="hello">
   <h1>Hello World!</h1>
   {{greeting}}
-  <input class='joiner' type="button" value="Click to Join Game" />
-  {{loginButtons}} 
+  {{loginButtons}}
 
   {{#unless gameinprogress}}
+    <input class='joiner' type="button" value="Click to Join Game" />
     <p>Must have 3-5 players to play</p>
     {{#if enoughPlayers}}
       <input class='starter' type="button" value="Click to Start Game" />
@@ -40,6 +40,7 @@
 
 <template name="gameboard">
   {{#if gameinprogress}}
+    <p class=current-player>It is currently <span>{{currentPlayer}}'s</span> turn</p>
       {{#if myTurn}}
       <p>Your turn, bucko</p>
       {{/if}}

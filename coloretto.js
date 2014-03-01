@@ -1,5 +1,10 @@
 if (Meteor.isClient) {
 
+  //TODO: hide takestack when stack has no cards
+  //TODO: hide drawcard when stacks are full
+  //TODO: Show Game is over, remove Game at last stacktake
+  //TODO: Count up Score at End Game
+  //TODO: Some styling
   //Meteor.subscribe("PlayersPlaying");
   PlayersPlaying = new Meteor.Collection("playersplaying");
   CurrentCard = new Meteor.Collection("currentcard");
@@ -9,7 +14,7 @@ if (Meteor.isClient) {
   Template.hello.greeting = function () {
     //Players = new Meteor.collection("playersplaying");
     //console.log(Players.find({}));
-    return "Welcome to test.";
+    return "Welcome to Coloretto";
   };
   Accounts.ui.config({passwordSignupFields: 'USERNAME_AND_EMAIL'})
 
@@ -79,7 +84,11 @@ if (Meteor.isClient) {
     }
     typeArray.concat(endArray);
   }
-  //TODO add player's mats using curser sort
+
+  Template.gameboard.currentPlayer = function() {
+    var cpuid = Game.find({}).fetch()[0].currentPlayer;
+    return PlayersPlaying.find({_id: cpuid}).fetch()[0]['username'];
+  }
 
   Template.gameboard.cardDrawn = function() {
     return CurrentCard.find({}).count();
@@ -168,11 +177,13 @@ if (Meteor.isServer) {
       Deck.remove({});
       CurrentCard.insert({card: deck.shift()});
       Deck.insert({cards: deck});
-      if (deck.length == 15) {
-        game = Game.find({}).fetch();
-        game[lastround] = true;
-        Game.update({_id: game.id}, game);
-      }
+      console.log(deck.length);
+      //if (deck.length == 15) {
+        //game = Game.find({}).fetch()[0];
+        //game.lastround = true;
+        //console.log('lastround');
+        //Game.update({_id: game._id}, game);
+      //}
     },
     addtostack: function(stackID, uid) {
       cardsinstack = Stacks.find({_id:stackID}).fetch()[0].stack;
@@ -226,6 +237,7 @@ if (Meteor.isServer) {
       }
     },
   })
+
   function sortItRight(cards) {
     cards.sort();
 
@@ -253,23 +265,29 @@ if (Meteor.isServer) {
       count -= 1;
     }
   }
+
   function deckmake(players) {
     if (players == 3) {
       colors = new Array('blue', 'purple', 'green', 'brown', 'red', 'orange');
+      colors = new Array('blue');
     } else {
       colors = new Array('blue', 'purple', 'green', 'yellow', 'brown', 'red', 'orange');
     }
     deck = new Array();
     colors=_.shuffle(colors);
+
+    //give each player their starting card
+    starting_cards = colors.slice(0, players);
+
+    PlayersPlaying.find({}).fetch().forEach(function(element, index, array) {
+      element.mycards = new Array(starting_cards[index]);
+      element.sortedcards = new Array(new Array(starting_cards[index]));
+      PlayersPlaying.update({_id:element._id}, element);
+    });
+    console.log('does this come out');
+
     colors.forEach(function(element, index, array) {
-      if (players > 0) {
-        players -= 1;
-        player = PlayersPlaying.find({turn: players }).fetch();
-        startingCard = new Array('element');
-        startingSort = new Array(new Array('element'));
-        player.mycards = startingCard;
-        player.sortedcards = startingSort;
-        PlayersPlaying.update({_id: player._id}, player);
+      if (starting_cards.indexOf(element) != -1) {
         addDeckCard(8, element, deck);
       } else {
         addDeckCard(9, element, deck);
@@ -277,7 +295,7 @@ if (Meteor.isServer) {
     });
     addDeckCard(3, 'wild', deck);
     addDeckCard(10, 'plus', deck);
-    deck=_.shuffle(deck);
+    deck =_.shuffle(deck);
     Deck.insert({cards: deck});
 
   }
